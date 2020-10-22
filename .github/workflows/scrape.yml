@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron:  '6,21,36,51 * * * *'
+    - cron:  '2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * *'
 
 jobs:
   scheduled:
@@ -14,11 +14,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Fetch latest data
       run: |-
-	curl -X POST \
-	-d @post-body.xml
-	https://hfdapp.houstontx.gov/JSONTest/WebService1.asmx --header "Content-Type:text/xml" | \
-	xpath '//GetIncidentsResult/text()' | \
-	jq > incidents.json
+	curl -X POST  -d @post-body.xml https://hfdapp.houstontx.gov/JSONTest/WebService1.asmx > incidents.json
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
