@@ -15,7 +15,7 @@ jobs:
     - name: Fetch latest data
       run: |-
         sudo apt-get install libxml2-utils
-        curl -X POST -d @post-body.xml  --header "Content-Type:text/xml"  https://hfdapp.houstontx.gov/JSONTest/WebService1.asmx | xmllint --format - > incidents.json
+        curl -X POST -d @post-body.xml  --header "Content-Type:text/xml"  https://hfdapp.houstontx.gov/JSONTest/WebService1.asmx | xmllint --xpath '//GetIncidentsResult/text()' - > incidents.json
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
